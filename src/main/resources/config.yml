@@ -1,0 +1,254 @@
+grave:
+  # how long a grave stays in the world, in seconds. -1 makes graves never despawn
+  despawn-time-seconds: 300
+
+  # remove the grave as soon as the last item and the last xp point is taken out
+  despawn-when-empty: true
+
+  # drop everything on the ground when a grave despawns, false deletes the contents
+  drop-items-on-despawn: true
+
+  # false makes the dropped items stay on the grave block instead of flying around
+  dropped-item-velocity: true
+
+  # how many graves a single player can own at the same time, -1 disables the limit.
+  # override it per rank with aquagraves.limit.<amount>, or aquagraves.limit.unlimited
+  limit: 3
+
+  # what happens when a player at the limit dies
+  # REMOVE_OLDEST = the oldest grave is removed (its contents drop), the new grave spawns
+  # DENY = no new grave, the items drop on the ground like vanilla
+  limit-reached: REMOVE_OLDEST
+
+  # how far a player can be to open or loot a grave, in blocks
+  max-interact-distance: 6.0
+
+  # let players put items into a grave, false makes it take-only
+  allow-deposits: true
+
+  # close the grave gui when the player walks out of max-interact-distance
+  close-gui-when-far: true
+
+# graves behave like a locked chest for a while: only the owner can touch them.
+# this is what stops other players from camping a corpse the second someone dies
+protection:
+  enabled: true
+
+  # how long the grave stays locked to its owner, in seconds. 0 locks it for its whole life
+  duration-seconds: 120
+
+  # extend it per rank with aquagraves.protection.<seconds>, the highest one wins
+  # what happens when the lock runs out
+  # UNLOCK = anyone can open and loot the grave for the rest of its life
+  # REMOVE = the grave despawns instead of becoming public (contents follow drop-items-on-despawn)
+  on-expire: UNLOCK
+
+  # tell the owner in chat when their grave unlocks
+  notify-owner: true
+
+  # even while unlocked, keep the grave openable only by its owner (aquagraves.bypass.protection ignores it)
+  always-owner-only: false
+
+death:
+  # store the dropped items inside the grave
+  store-items: true
+
+  # store the dropped xp inside the grave
+  store-xp: true
+
+  # how much of the stored xp the player gets back, 1.0 = 100%, 0.5 = half
+  xp-keep-percentage: 1.0
+
+  # take the items even when another plugin or the keepInventory gamerule wants to keep them
+  override-keep-inventory: false
+
+  # same as above but for xp levels
+  override-keep-level: false
+
+  # when the death listener runs, needs restart.
+  # if graves spawn empty because another plugin eats the drops, lower this
+  # values: LOWEST, LOW, NORMAL, HIGH, HIGHEST, MONITOR
+  listener-priority: HIGHEST
+
+  # no graves are created in these worlds, case-sensitive
+  disabled-worlds:
+    - example_world
+
+  # no graves are created for these death causes
+  # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
+  blacklisted-death-causes:
+    - VOID
+
+  # what order the items are placed in the grave, everything else goes after
+  # values: ARMOR, HAND, OFFHAND
+  item-order:
+    - ARMOR
+    - HAND
+    - OFFHAND
+
+  # send the death coordinates to the player who died
+  send-coordinates: true
+
+pickup:
+  # take everything with shift + right click on the grave, no gui needed
+  instant-pickup: true
+
+  # only the owner may shift pick up, others still have to use the gui
+  instant-pickup-only-own: false
+
+  # put armor and the elytra straight back on empty armor slots
+  auto-equip-armor: true
+
+  # give the stored xp back the moment the grave is touched
+  xp-on-interact: true
+
+appearance:
+  # the floating head, in blocks, relative to the grave. lower it if it clips into the ground
+  head-height: -1.2
+
+  # true: the head faces the exact direction the player died looking at
+  # false: the head snaps to north, east, south or west
+  rotate-head-360: true
+
+  # spin the head slowly, purely cosmetic and costs a packet per second per grave
+  auto-rotation:
+    enabled: false
+    speed: 10.0
+
+  # use one skull for every grave instead of the dead player's own head
+  custom-skull:
+    enabled: false
+    base64: ""
+
+  hologram:
+    enabled: true
+
+    # AUTO picks text displays on 1.19.4+ and armor stands below that
+    # values: AUTO, TEXT_DISPLAY, ARMOR_STAND
+    type: AUTO
+
+    # height of the bottom line above the grave
+    height: 0.75
+
+    # vertical gap between lines, only used by armor stand holograms
+    line-height: 0.28
+
+    # holograms only refresh while a player is this close, in blocks. lower it on big servers
+    view-distance: 48
+
+    # how often the countdown line refreshes, in ticks. 20 = once a second
+    update-interval-ticks: 20
+
+    # text display only, format (hexadecimal): AARRGGBB, 00000000 is invisible
+    background-color: "00000000"
+
+    # text display only, values: LEFT, RIGHT, CENTER
+    alignment: CENTER
+
+    # text display only, values: FIXED, VERTICAL, HORIZONTAL, CENTER
+    billboard: VERTICAL
+
+    # text display only, draw the text through blocks
+    see-through: false
+
+    # text display only, outline behind the text
+    shadow: true
+
+teleport:
+  # /aquagraves tp, needs aquagraves.teleport
+  enabled: true
+
+  # only let players teleport to their own graves, aquagraves.teleport.others ignores it
+  only-own: true
+
+  # seconds between teleports, 0 disables it, bypass with aquagraves.bypass.cooldown
+  cooldown-seconds: 30
+
+  # stand still for this many seconds before the teleport happens, 0 teleports instantly
+  warmup-seconds: 3
+
+  # cancel the warmup if the player walks away
+  cancel-on-move: true
+
+  # cancel the warmup if the player takes damage
+  cancel-on-damage: true
+
+storage:
+  # how often graves are written to disk, in seconds. -1 only saves on shutdown.
+  # only used when save-on-change is false, coalescing already bounds the delay otherwise
+  save-interval-seconds: 60
+
+  # write shortly after a grave is opened, looted or closed.
+  # keep this on: it is what stops a server crash from duplicating items.
+  # a change never writes immediately, see save-coalesce-ticks below
+  save-on-change: true
+
+  # how long changes are allowed to pile up before one write happens, in ticks (100 = 5 seconds).
+  # every change inside the window rides along with the same write, so a hundred players looting
+  # graves in the same second still produce exactly one file write.
+  # lower it to shrink the crash window, raise it to write even less often
+  save-coalesce-ticks: 100
+
+  # keep a copy of the contents of every removed grave so staff can hand them back
+  # with /aquagraves restore <player>. a restored copy is consumed, so the command can not be
+  # run twice on the same grave, but note that an expired grave also dropped its items in the
+  # world, so restoring one is a staff decision, not an automatic refund
+  backups:
+    enabled: true
+
+    # how many removed graves are remembered per player, the oldest one is dropped
+    keep-per-player: 5
+
+# graves are clamped inside these heights so they never spawn in the void or above the build limit
+# undefined worlds fall back to the limits of their dimension
+spawn-height-limits:
+  world:
+    min: -64
+    max: 319
+  world_nether:
+    min: 0
+    max: 255
+  world_the_end:
+    min: 0
+    max: 255
+
+# used by the %world% placeholder, undefined worlds keep their real name, case-sensitive
+world-name:
+  world: "Overworld"
+  world_nether: "The Nether"
+  world_the_end: "The End"
+
+# these items are destroyed on death and never show up in a grave
+# every entry needs a material, a name-contains, or both
+denied-section:
+  items:
+    - BARRIER
+    - BEDROCK
+  names:
+    - "&cSoulbound"
+
+sounds:
+  # namespaced keys, not the old enum names. use "" to disable one
+  spawn: "entity.wither.spawn"
+  open: "block.chest.open"
+  pickup: "entity.item.pickup"
+  unlock: "block.chest.locked"
+  despawn: "block.fire.extinguish"
+  volume: 0.6
+  pitch: 1.4
+
+# which command labels are registered, the first one is the main label, needs restart
+command-aliases:
+  - aquagraves
+  - agraves
+  - graves
+  - grave
+
+# check spigot for a newer release on startup and tell staff with aquagraves.update when they join
+update-notify: true
+
+# print a lot of extra information to the console, only turn it on if asked to
+debug: false
+
+# Do not change this
+version: 1

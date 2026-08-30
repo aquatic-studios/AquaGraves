@@ -1,0 +1,113 @@
+prefix: "&#33CCFF&lAquaGraves &7» &f"
+
+gui-title: "&0%player%&0's Grave"
+
+unknown-player: "&7Unknown"
+
+hologram:
+  - "&#33CCFF&l%player%"
+  - "&#8BD5FF%items% &fitems &7| &#8BD5FF%xp% &fxp"
+  - "%lock-status% &7| &#8BD5FF%despawn-time%"
+
+hologram-locked: "&#FFA42D&lLOCKED &f%protection-time%"
+hologram-unlocked: "&#56FF00&lUNLOCKED"
+hologram-forever: "&#8BD5FF∞"
+
+help:
+  - " "
+  - "&#33CCFF&lAquaGraves &7- &fCommands"
+  - " "
+  - "&#33CCFF/aquagraves tp [player] [#] &7- &fTeleport to a grave"
+  - "&#33CCFF/aquagraves list [player] [page] &7- &fList the graves of a player"
+  - "&#33CCFF/aquagraves near [radius] &7- &fList the graves around you"
+  - "&#33CCFF/aquagraves info &7- &fDetails about the grave you are looking at"
+  - "&#33CCFF/aquagraves remove [player|all] &7- &fRemove graves"
+  - "&#33CCFF/aquagraves restore <player> [#] &7- &fHand back a removed grave"
+  - "&#33CCFF/aquagraves purge &7- &fDelete every grave without dropping items"
+  - "&#33CCFF/aquagraves stats &7- &fGrave and memory stats"
+  - "&#33CCFF/aquagraves reload &7- &fReload all files"
+  - " "
+
+info:
+  - " "
+  - "&#33CCFF&lAquaGraves &7- &fGrave &7(%id%)"
+  - " "
+  - "&#33CCFFOwner: &f%player%"
+  - "&#33CCFFLocation: &f%world% %x%, %y%, %z%"
+  - "&#33CCFFItems: &f%items% &7| &#33CCFFXP: &f%xp%"
+  - "&#33CCFFAge: &f%age%"
+  - "&#33CCFFDespawns in: &f%despawn-time%"
+  - "&#33CCFFProtection: %lock-status%"
+  - "&#33CCFFViewers: &f%viewers%"
+  - " "
+
+stats:
+  - " "
+  - "&#33CCFF&lAquaGraves &7- &fStats"
+  - " "
+  - "&#33CCFFGraves loaded: &f%graves%"
+  - "&#33CCFFOwners: &f%owners%"
+  - "&#33CCFFStored items: &f%items% &7| &#33CCFFStored xp: &f%xp%"
+  - "&#33CCFFProtected right now: &f%protected%"
+  - "&#33CCFFBackups kept: &f%backups%"
+  - "&#33CCFFHolograms: &f%hologram-type% &7| &#33CCFFPlatform: &f%platform%"
+  - "&#33CCFFTicker: &f%ticker% &7| &#33CCFFPermission cache: &f%permission-cache%"
+  - " "
+
+list:
+  header: " &#33CCFF&lAquaGraves &7- &fGraves of &#33CCFF%player% &7(page %page%/%pages%)"
+  entry: "&7 • &#33CCFF[TP] &f%world% &7%x%, %y%, %z% &7- &f%items% items &7| &f%xp% xp &7| %lock-status% &7| &f%despawn-time%"
+  entry-hover: "&#33CCFFClick to teleport&7\n&fGrave &7#%index%&f of &#33CCFF%player%"
+  footer: " "
+  empty: "%prefix%&#FFA42D[Warning] No graves found"
+
+messages:
+  no-permission: "%prefix%You don't have permission to do that"
+  players-only: "%prefix%Only players can run this command"
+  unknown-command: "%prefix%Unknown command, try &#33CCFF/aquagraves help"
+  reload: "%prefix%Reloaded config & messages &#56FF00Correctly"
+  reload-failed: "%prefix%&#FF5555[Warning] A file failed to parse, the previous settings are still active. Check the console"
+  invalid-number: "%prefix%&#FFA42D[Warning] &f%value% &#FFA42Dis not a valid number"
+  invalid-player: "%prefix%&#FFA42D[Warning] The player &f%player% &#FFA42Dcould not be found"
+  missing-argument: "%prefix%&#FFA42D[Warning] Missing argument: &f%value%"
+
+  grave-spawned: "%prefix%Your grave was placed at &#33CCFF%world% %x%, %y%, %z%"
+  grave-coordinates: "%prefix%You died at &#33CCFF%world% %x%, %y%, %z% &7(&f%despawn-time% &7left)"
+  grave-limit-reached: "%prefix%&#FFA42D[Warning] You reached your grave limit of &f%limit%&#FFA42D, your oldest grave was emptied"
+  grave-limit-denied: "%prefix%&#FFA42D[Warning] You reached your grave limit of &f%limit%&#FFA42D, your items dropped on the ground"
+  grave-protected: "%prefix%&#FFA42D[Warning] This grave belongs to &f%player%&#FFA42D, it unlocks in &f%protection-time%"
+  grave-owner-only: "%prefix%&#FFA42D[Warning] This grave belongs to &f%player%&#FFA42D, you can't open it"
+  grave-unlocked: "%prefix%Your grave at &#33CCFF%world% %x%, %y%, %z% &fis now &#FFA42Dopen to everyone"
+  grave-expired: "%prefix%&#FFA42D[Warning] Your grave at &f%world% %x%, %y%, %z% &#FFA42Ddespawned"
+  grave-removed: "%prefix%Removed &#56FF00%count% &fgrave(s)"
+  grave-emptied: "%prefix%You emptied the grave of &#33CCFF%player%"
+  grave-full: "%prefix%&#FFA42D[Warning] Your inventory is full, the rest stayed in the grave"
+  grave-gone: "%prefix%&#FFA42D[Warning] That grave is gone"
+  grave-too-far: "%prefix%&#FFA42D[Warning] You are too far from that grave"
+  grave-deposit-denied: "%prefix%&#FFA42D[Warning] You can't put items into a grave"
+  xp-restored: "%prefix%You recovered &#56FF00%xp% &fxp"
+
+  teleport-disabled: "%prefix%&#FFA42D[Warning] Teleporting to graves is disabled"
+  teleport-warmup: "%prefix%Teleporting in &#33CCFF%seconds%s&f, don't move"
+  teleport-done: "%prefix%Teleported to your grave at &#33CCFF%world% %x%, %y%, %z%"
+  teleport-cancelled: "%prefix%&#FFA42D[Warning] Teleport cancelled"
+  teleport-cooldown: "%prefix%&#FFA42D[Warning] Wait &f%seconds%s &#FFA42Dbefore teleporting again"
+  teleport-not-yours: "%prefix%&#FFA42D[Warning] That grave is not yours"
+
+  restore-done: "%prefix%Gave &#56FF00%count% &fitems from a grave of &#33CCFF%player% &fto &#33CCFF%target%"
+  restore-empty: "%prefix%&#FFA42D[Warning] No grave backups stored for &f%player%"
+  restore-overflow: "%prefix%&#FFA42D[Warning] Some items didn't fit and dropped on the ground"
+  purge-done: "%prefix%Purged &#FF5555%count% &fgraves"
+  purge-warning: "%prefix%&#FF5555[Warning] This deletes &lALL &#FF5555graves and their items. Run &f/aquagraves purge confirm &#FF5555within 30s"
+  purge-nothing: "%prefix%&#FFA42D[Warning] Nothing to confirm, run &f/aquagraves purge &#FFA42Dfirst"
+
+time:
+  day: "d"
+  hour: "h"
+  minute: "m"
+  second: "s"
+  now: "now"
+  never: "never"
+
+# Do not change this
+version: 1

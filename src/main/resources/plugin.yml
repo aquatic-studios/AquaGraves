@@ -1,0 +1,15 @@
+#                                                            Developed by Senkex
+#                                                        (Aquatic Studios @ (C) 2026)
+
+name: AquaGraves
+version: '${project.version}'
+author: 'Senkex'
+
+api-version: '1.16'
+folia-supported: true
+
+main: com.aquaticstudios.aquagraves.AquaGraves
+website: 'https://github.com/aquatic-studios/AquaGraves'
+
+softdepend:
+  - PlaceholderAPI
