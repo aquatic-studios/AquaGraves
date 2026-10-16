@@ -128,7 +128,7 @@ appearance:
     type: AUTO
 
     # height of the bottom line above the grave
-    height: 0.75
+    height: 0.30
 
     # vertical gap between lines, only used by armor stand holograms
     line-height: 0.28
